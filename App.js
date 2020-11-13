@@ -94,17 +94,26 @@ class CameraScreen extends React.Component {
   render() {
     return (
       <View style={styles.cameraContainer}>
-        <Camera 
-          style={styles.camera}
-          ratio='4:3'
-          pictureSize='Medium'
-          ref={ref=>this.cameraRef=ref}
-        />
-        <TouchableOpacity 
-          style={styles.cameraControls}
-          onPress={this.onTakePicture}>
-          <Text style={styles.snapText}>Snap!</Text>
-        </TouchableOpacity>
+        {this.state.hasCameraPermission ?
+        <View style={{flex: 1}}>
+          <Camera 
+            style={styles.camera}
+            ratio='4:3'
+            pictureSize='Medium'
+            ref={ref=>this.cameraRef=ref}
+          />
+          <TouchableOpacity 
+            style={styles.cameraControls}
+            onPress={this.onTakePicture}>
+            <Text style={styles.snapText}>Snap!</Text>
+          </TouchableOpacity>
+        </View>
+        :
+
+          <Text>
+            No access to camera.
+          </Text>
+        }   
       </View>
     );
   }
@@ -158,8 +167,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   logo: {
-    width: 400,
-    height: 100,
+    width: 100,
+    height: 400,
     resizeMode: 'contain'
   },
 });
